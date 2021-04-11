@@ -21,11 +21,11 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 Fatos = [
-    'A cachoeira do itambé pertence ao município de Cássia dos Coqueiros, qualquer um contrário está errado.',
-    'Se seu um animal de sua criação foi encontrado devorado durante a noite, é um sinal de atividade do Loporbí. Recomendo adiquirir balas de prata.',
-    'Em dias de chuva é possivel observar um cavalo alado pastando pelas cercanias do município.',
-    'Caso esteja apreciando uma noite gélida na praça da matriz, cuidado com o cavaleiro que ronda a madrugada no local. Ninguém sabe ao certo como ele se parece, aparentemente quem o viu não voltou para contar.',
-    'Nos dias pacatos quando as ruas estão vazias, pode se escutar um andarilho atravessando vagarosamente a cidade arrastando correntes. Não se sabe de onde e para onde vai. Se voce estiver disposto a perguntar, alongue-se primeiro, mesmo correndo ninguém consegiu alcançá-lo'
+    '''Tanto a queda quanto o poço da cachoeira do itambé, pertence ao município de Cássia dos Coqueiros. Qualquer um contrário, está errado.''',
+    '''Se um animal de sua criação foi encontrado devorado durante a noite, é um sinal de atividade do Loporbí.<break time="1s"/>Recomendo adiquirir balas de prata.''',
+    '''Em dias de chuva é possivel observar um cavalo alado pastando pelas cercanias do município.''',
+    '''Caso esteja apreciando uma noite gélida na praça da matriz, cuidado com o cavaleiro que ronda a madrugada no local. Ninguém sabe ao certo como ele se parece, aparentemente quem o viu não voltou para contar.''',
+    '''Nos dias pacatos quando as ruas estão vazias, pode se escutar um andarilho atravessando vagarosamente a cidade arrastando correntes. Não se sabe de onde e para onde vai. Se você estiver disposto a perguntar, alongue-se primeiro, pois mesmo correndo ninguém até hoje consegui alcançá-lo'''
     ]
 
 class FatosIntentHandler(AbstractRequestHandler):
