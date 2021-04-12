@@ -26,7 +26,8 @@ Fatos = [
     '''Em dias de chuva é possivel observar um cavalo alado pastando pelas cercanias do município.''',
     '''Caso esteja apreciando uma noite gélida na praça da matriz, cuidado com o cavaleiro que ronda a madrugada no local. Ninguém sabe ao certo como ele se parece, aparentemente quem o viu não voltou para contar.''',
     '''Nos dias pacatos quando as ruas estão vazias, pode se escutar um andarilho atravessando vagarosamente a cidade arrastando correntes. Não se sabe de onde e para onde vai. Se você estiver disposto a perguntar, alongue-se primeiro, pois mesmo correndo ninguém até hoje consegui alcançá-lo''',
-    '''Fique atento ao retornar ao centro vindo do rio tamanduá pela noite, caso você encontre uma mulher sozinha, usando um vestido branco, e segurando um bebê no colo. Não se apavore, é apenas um espírito local. Não se aproxime dela e continue caminhando. Ao chegar em casa, beba uma dose de cachaça para aliviar a tensão.'''
+    '''Fique atento ao retornar ao centro vindo do rio Tamanduá pela noite, caso você encontre uma mulher sozinha, usando um vestido branco, e segurando um bebê no colo. Não se apavore, é apenas um espírito local. Não se aproxime dela e continue caminhando. Ao chegar em casa, beba uma dose de cachaça para aliviar a tensão.''',
+    '''Depois da demolição do coreto da praça central. Os casos de bodes dançando em círculos caíram vertiginosamente. Para a alegria dos residentes do entorno da praça da matriz, além de não ter que conviver com os olhares intimidadores dos caprinos, os fortes golpes desferidos nas janelas durante a dança infernizavam o sono do moradores.'''
     ]
 
 class FatosIntentHandler(AbstractRequestHandler):
