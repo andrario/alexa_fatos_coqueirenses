@@ -23,11 +23,12 @@ logger.setLevel(logging.INFO)
 Fatos = [
     '''Tanto a queda quanto o poço da cachoeira do itambé, pertence ao município de Cássia dos Coqueiros. Qualquer um contrário, está errado.''',
     '''Se um animal de sua criação foi encontrado devorado durante a noite, é um sinal de atividade do Loporbí.<break time="1s"/>Recomendo adiquirir balas de prata. Você gostaria de buscar por, Balas de Prata, na loja da amazon?''',
-    '''Em dias de chuva é possivel observar um cavalo alado pastando pelas cercanias do município.''',
+    '''Em dias de chuva é possível observar um cavalo alado pastando pelas cercanias do município.''',
     '''Caso esteja apreciando uma noite gélida na praça da matriz, cuidado com o cavaleiro que ronda a madrugada no local. Ninguém sabe ao certo como ele se parece, aparentemente quem o viu não voltou para contar.''',
-    '''Nos dias pacatos quando as ruas estão vazias, pode se escutar um andarilho atravessando vagarosamente a cidade arrastando correntes. Não se sabe de onde e para onde vai. Se você estiver disposto a perguntar, alongue-se primeiro, pois mesmo correndo ninguém até hoje consegui alcançá-lo''',
+    '''Nos dias pacatos quando as ruas estão vazias, pode se escutar um andarilho atravessando vagarosamente a cidade arrastando correntes. Não se sabe de onde e para onde vai. Se você estiver disposto a perguntar, alongue-se primeiro, pois mesmo correndo ninguém até hoje conseguiu alcançá-lo''',
     '''Fique atento ao retornar ao centro vindo do rio Tamanduá pela noite, caso você encontre uma mulher sozinha, usando um vestido branco, e segurando um bebê no colo. Não se apavore, é apenas um espírito local. Não se aproxime dela e continue caminhando. Ao chegar em casa, beba uma dose de cachaça para aliviar a tensão.''',
-    '''Depois da demolição do coreto da praça central. Os casos de bodes dançando em círculos caíram vertiginosamente. Para a alegria dos residentes do entorno da praça da matriz, além de não ter que conviver com os olhares intimidadores dos caprinos, os fortes golpes desferidos nas janelas durante a dança infernizavam o sono do moradores.'''
+    '''Depois da demolição do coreto da praça central. Os casos de bódes dançando em círculos caíram vertiginósamente. Para a alegria dos residentes do entorno da praça da matriz, além de não ter que conviver com os olhares intimidadores dos caprinos, os fortes golpes desferidos nas janelas durante a dança, que infernizavam o sono dos moradores, Acabaram.''',
+    '''Quatre meia é o horário oficial do café da tarde em diversas casas na cidade.'''
     ]
 
 class FatosIntentHandler(AbstractRequestHandler):
@@ -38,12 +39,22 @@ class FatosIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         speak_output = random.choice(Fatos)
         
-        return (
-            handler_input.response_builder
-                .speak(speak_output)
-                .ask(speak_output)
-                .response
-        )
+        resposta = {
+			"outputSpeech": {
+				"type": "SSML",
+				"ssml": "<speak>"+speak_output+"</speak>"
+			},
+			"reprompt": {
+				"outputSpeech": {
+					"type": "SSML",
+					"ssml": "<speak>"+speak_output+"</speak>"
+				}
+			},
+			"shouldEndSession": True,
+			"type": "_DEFAULT_RESPONSE"
+		}
+        
+        return resposta
 
 
 class LaunchRequestHandler(AbstractRequestHandler):
@@ -55,7 +66,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Oi tião, tudo bão? Se quiser saber um fato, fala. Quero. Antes de fatos coqueirenses."
+        speak_output = "Oi tião, tudo bão? Quer ouvir um fato coqueirense? ou precisa de ajuda?"
 
         return (
             handler_input.response_builder
@@ -64,6 +75,23 @@ class LaunchRequestHandler(AbstractRequestHandler):
                 .response
         )
 
+
+class HelloWorldIntentHandler(AbstractRequestHandler):
+    """Handler for Hello World Intent."""
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return ask_utils.is_intent_name("HelloWorldIntent")(handler_input)
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        speak_output = "Hello World!"
+
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                # .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .response
+        )
 
 
 class HelpIntentHandler(AbstractRequestHandler):
@@ -74,7 +102,7 @@ class HelpIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "You can say hello to me! How can I help?"
+        speak_output = "Uái, se quiser saber um fato, é só falar. Quero um fato coqueirense ou alguma coisa assim."
 
         return (
             handler_input.response_builder
@@ -93,7 +121,7 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Goodbye!"
+        speak_output = "Té mais."
 
         return (
             handler_input.response_builder
@@ -110,8 +138,8 @@ class FallbackIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.info("In FallbackIntentHandler")
-        speech = "Hmm, I'm not sure. You can say Hello or Help. What would you like to do?"
-        reprompt = "I didn't catch that. What can I help you with?"
+        speech = "Uái tião, não entendi esse trem. Pode falar denovo?"
+        reprompt = "É tião, não entendi mesmo. Tenta falar outra coisa."
 
         return handler_input.response_builder.speak(speech).ask(reprompt).response
 
@@ -165,7 +193,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
         # type: (HandlerInput, Exception) -> Response
         logger.error(exception, exc_info=True)
 
-        speak_output = "Sorry, I had trouble doing what you asked. Please try again."
+        speak_output = "Não consegui fazer esse trem. Tenta falar outra coisa."
 
         return (
             handler_input.response_builder
@@ -182,6 +210,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 sb = SkillBuilder()
 
 sb.add_request_handler(LaunchRequestHandler())
+sb.add_request_handler(HelloWorldIntentHandler())
 sb.add_request_handler(FatosIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
